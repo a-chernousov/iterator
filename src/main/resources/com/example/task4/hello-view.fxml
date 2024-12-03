@@ -12,19 +12,20 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.task4.HelloController">
+      fx:controller="com.example.task4.HelloController"
+      style="-fx-background-color: #a0a0a0">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
     <StackPane fx:id="imageContainer" prefWidth="420" prefHeight="420">
-        <Rectangle width="420" height="420" fill="BLACK"/>
-        <ImageView fx:id="screen" fitWidth="400" fitHeight="400" preserveRatio="true" StackPane.alignment="CENTER"/>
+        <Rectangle width="615" height="615" fill="GREY"/>
+        <ImageView fx:id="screen" fitWidth="600" fitHeight="600" preserveRatio="true" StackPane.alignment="CENTER"/>
     </StackPane>
 
     <HBox spacing="10.0" alignment="CENTER">
         <Button text="Назад" onAction="#next"/>
-        <Button fx:id="startStopButton" text="⏯" onAction="#toggleAnimation"/>
+        <Button fx:id="startStopButton" text="start" onAction="#toggleAnimation"/>
         <Button text="Вперёд" onAction="#preview"/>
         <Button text="Выбрать папку" onAction="#selectFolder"/>
     </HBox>

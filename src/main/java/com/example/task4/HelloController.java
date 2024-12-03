@@ -4,22 +4,19 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
-import javafx.scene.control.TextField;
-
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-
 import javafx.stage.DirectoryChooser;
+import javafx.util.Duration;
+
 import java.io.File;
 
 public class HelloController {
 
-    public ConcreteAggregate conaggr = new ConcreteAggregate("img");
+    private static final String DEFAULT_FOLDER_PATH = "src/main/resources/img";
+    public ConcreteAggregate conaggr = new ConcreteAggregate(DEFAULT_FOLDER_PATH);
     public Iterator iter = conaggr.getIterator();
 
     public Timeline time = new Timeline();
@@ -50,9 +47,9 @@ public class HelloController {
     public void toggleAnimation() {
         if (isPlaying) {
             time.pause();
-            startStopButton.setText("stop");
-        } else {
             startStopButton.setText("start");
+        } else {
+            startStopButton.setText("stop");
             time.play();
         }
         isPlaying = !isPlaying;
@@ -74,7 +71,7 @@ public class HelloController {
     }
 
     @FXML
-    public void preview(){
+    public void preview() {
         screen.setImage((Image) iter.preview());
     }
 
@@ -86,6 +83,10 @@ public class HelloController {
         if (selectedDirectory != null) {
             String folderPath = selectedDirectory.getAbsolutePath();
             conaggr = new ConcreteAggregate(folderPath);
+            iter = conaggr.getIterator();
+        } else {
+            // Если пользователь не выбрал папку, возвращаемся к дефолтной папке
+            conaggr = new ConcreteAggregate(DEFAULT_FOLDER_PATH);
             iter = conaggr.getIterator();
         }
     }

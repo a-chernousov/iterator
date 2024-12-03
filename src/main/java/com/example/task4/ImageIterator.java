@@ -3,15 +3,6 @@ package com.example.task4;
 import javafx.scene.image.Image;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Paths;
-import javafx.scene.image.Image;
-
-import javafx.scene.image.Image;
-
-import java.io.File;
-import java.nio.file.Paths;
 
 public class ImageIterator implements Iterator {
     private int current = 0;
@@ -56,7 +47,7 @@ public class ImageIterator implements Iterator {
 
     @Override
     public Object preview() {
-        if (current != 0){
+        if (current != 0) {
             current--;
         }
         System.out.println(current);
