@@ -19,6 +19,10 @@ public class ImageIterator implements Iterator {
         return folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".jpg"));
     }
 
+    public File[] getImageFiles() {
+        return imageFiles;
+    }
+
     private Image getImage(int index) {
         try {
             if (index < imageFiles.length) {
@@ -50,7 +54,6 @@ public class ImageIterator implements Iterator {
         if (current != 0) {
             current--;
         }
-        System.out.println(current);
         return getImage(current);
     }
 }

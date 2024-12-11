@@ -1,0 +1,118 @@
+@startuml
+
+' Интерфейсы
+interface Aggregate {
+    + Iterator getIterator()
+    + boolean hasNext(int i)
+    + Object next()
+}
+
+interface Iterator {
+    + boolean hasNext(int x)
+    + Object next()
+    + Object preview()
+}
+
+interface Builder {
+    + void setView(int N, char norm, char select)
+    + void lineBounds(float start, float stop)
+    + void linePaint(float measure)
+    + void lineMark(String measure)
+    + void addTitle(String name)
+    + Indicator build()
+}
+
+' Классы
+class HelloApplication {
+    + void start(Stage stage)
+    + static void main(String[] args)
+}
+
+class HelloController {
+    - static final String DEFAULT_FOLDER_PATH
+    - ConcreteAggregate conaggr
+    - Iterator iter
+    - Timeline time
+    - boolean isPlaying
+    - Button startStopButton
+    - ImageView screen
+    - Pane indicatorPane
+    - Indicator indicator
+    - int totalImages
+    - int currentIndex
+
+    + void initialize()
+    + void toggleAnimation()
+    + void next()
+    + void preview()
+    + void selectFolder()
+    - void updateTimeline(int delayMillis)
+    - void updateIndicator()
+}
+
+class ConcreteAggregate {
+    - String filetopic
+
+    + ConcreteAggregate(String filetopic)
+    + Iterator getIterator()
+    + boolean hasNext(int i)
+    + Object next()
+}
+
+class ImageIterator {
+    - int current
+    - String folderPath
+    - File[] imageFiles
+
+    + ImageIterator(String folderPath)
+    + boolean hasNext(int i)
+    + Object next()
+    + Object preview()
+    - File[] getImageFiles(String folderPath)
+    - Image getImage(int index)
+}
+
+class Indicator {
+    - Pane panel
+    - Rectangle backgroundBar
+    - Rectangle progressBar
+    - Text progressText
+
+    + Indicator()
+    + void update(int currentIndex, int totalCount)
+    + void show(Pane pane)
+    + Pane getPanel()
+}
+
+class BuilderIndicatorMini {
+    - Indicator indicator
+    - float start
+    - float stop
+
+    + void setView(int N, char norm, char select)
+    + void lineBounds(float start, float stop)
+    + void linePaint(float measure)
+    + void lineMark(String measure)
+    + void addTitle(String name)
+    + Indicator build()
+}
+
+class Director {
+    + Indicator construct(Builder builder)
+}
+
+' Связи между классами
+HelloApplication --> HelloController : uses
+HelloController --> ConcreteAggregate : uses
+HelloController --> ImageIterator : uses
+HelloController --> Indicator : uses
+HelloController --> BuilderIndicatorMini : uses
+HelloController --> Director : uses
+
+ConcreteAggregate ..|> Aggregate : implements
+ImageIterator ..|> Iterator : implements
+BuilderIndicatorMini ..|> Builder : implements
+
+Director --> Builder : uses
+
+@enduml
